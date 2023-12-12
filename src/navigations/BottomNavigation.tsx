@@ -71,15 +71,13 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
                 if (routeName !== 'ProfileScreen') {
                     navigation.navigate('ProfileScreen' as any)
                 }
-                navigation.goBack()
                 navigation.navigate('LoginScreen' as any)
             }
         }
-    })
+    }, [navigation.getState().routes[0].state])
 
     return (
         <Navigation.Navigator
-            initialRouteName='HomeScreen'
             screenOptions={{
                 title: '',
                 headerShown: false,
@@ -93,8 +91,15 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
             }
         >
             <Navigation.Screen name="HomeScreen" component={HomeScreen} options={{
+                // @ts-ignore
+                header(props) {
+                    props.options.title = ''
+                    return props
+                },
                 tabBarIcon(props) {
-                    return <Image source={{ uri: getIcon(props, 'HomeScreen') }} style={{ width: 30, height: 30 }} />
+                    return (
+                        <Image source={{ uri: getIcon(props, 'HomeScreen') }} style={{ width: 30, height: 30 }} />
+                    )
                 },
             }} />
             <Navigation.Screen name="SearchScreen" component={NoneCoponent} options={{
@@ -114,8 +119,6 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
             }} />
             <Navigation.Screen name="ProfileScreen" component={ProfileScreen} options={{
                 tabBarIcon(props) {
-
-
                     return <Image source={{ uri: getIcon(props, 'ProfileScreen') }} style={{ width: 30, height: 30 }} />
                 },
             }} />

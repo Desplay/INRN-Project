@@ -12,7 +12,6 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (focused && token) {
-      console.log(token)
       navigation.navigate('HomeScreen')
     }
   }, [token])

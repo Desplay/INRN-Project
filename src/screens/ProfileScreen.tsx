@@ -4,6 +4,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
 import dbServices from '@utils/dbServices';
 import { useEffect } from 'react';
+import Header from '@components/home/Header';
 
 const styles = StyleSheet.create({
     container: {
@@ -24,6 +25,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             }
         `,
         {
+            
             onError: (err) => {
                 console.log(err)
             },
@@ -40,6 +42,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Header navigation={navigation}/>
             <Text>ProfileScreen</Text>
             <TouchableOpacity onPress={handleSignOut}><Text>{token}</Text></TouchableOpacity>
         </SafeAreaView>

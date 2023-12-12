@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 const NewPostScreen = ({ navigation }: { navigation: any }) => {
 	return (
 		<SafeAreaView style={styles.container}>
-			<AddNewPost navigation={navigation} />
+			<AddNewPost navigation={navigation}/>
 		</SafeAreaView>
 	)
 }
