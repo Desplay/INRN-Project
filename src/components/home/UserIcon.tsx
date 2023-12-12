@@ -16,6 +16,7 @@ const UserIcon = ({ item }: { item: any }) => {
             }
       }`,
         {
+            
             variables: { profile_id: item },
             context: { headers: { authorization: token } },
             onError: (err) => {

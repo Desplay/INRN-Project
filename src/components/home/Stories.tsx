@@ -3,7 +3,7 @@ import { saveFollowings } from '@features/followStore';
 import { View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import UserIcon from './UserIcon';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const Stories = () => {
   const token = useSelector((state: any) => state.token).token;
@@ -34,9 +34,10 @@ const Stories = () => {
 
   if (!token) return (<View></View>);
   return (
-    <View style={{ 
-      marginBottom: 16, 
-     }}>
+    <View style={{
+      paddingVertical: 10,
+      backgroundColor: '#101010',
+    }}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {followings && followings.map((item: any) => (
           <UserIcon key={keyGenerator()} item={item} />
