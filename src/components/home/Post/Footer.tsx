@@ -1,14 +1,19 @@
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
+import { likePost, unlikePost } from '@features/postStore';
 import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Divider } from 'react-native-elements';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Footer = ({ item }: { item: any }) => {
+const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, navigation: any }) => {
+
   const token = useSelector((state: any) => state.token).token
-  const [likeCount, setLikeCount] = useState(0)
-  const [like, setLike] = useState(false)
+  const my_profile_id = useSelector((state: any) => state.token).profile_id
+  const commentCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].comments.length
+  const likeCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likesCount
+  const likeList = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likes
+  const [like, setLike] = likeList?.filter((like: any) => like.profileIdLiked == my_profile_id).length > 0 ? useState(true) : useState(false)
+  const dispatch = useDispatch()
   const post_id = item.id
 
   const [Liked] = useMutation(
@@ -16,6 +21,7 @@ const Footer = ({ item }: { item: any }) => {
       mutation LikePost($post_id: String!){
         likePost(PostId: $post_id)
       }`, {
+
     context: { headers: { authorization: token } },
   }
   )
@@ -25,19 +31,7 @@ const Footer = ({ item }: { item: any }) => {
       mutation UnLikePost($post_id: String!){
         unlikePost(PostId: $post_id)
       }`, {
-    context: { headers: { authorization: token } },
-  }
-  )
 
-  const GetLikeCount = useLazyQuery(
-    gql`
-    query getLike($PostId: String!) {
-      getLikesDetail(PostId: $PostId) {
-        likes {
-          userIdLiked
-        }
-      }
-    }`, {
     context: { headers: { authorization: token } },
   }
   )
@@ -46,7 +40,6 @@ const Footer = ({ item }: { item: any }) => {
     const { data, errors } = await Liked({ variables: { post_id } })
     if (data) {
       console.log(data)
-      setLike(true)
     }
     if (errors) {
       console.log(errors)
@@ -57,46 +50,35 @@ const Footer = ({ item }: { item: any }) => {
     const { data, errors } = await Unliked({ variables: { post_id } })
     if (data) {
       console.log(data)
-      setLike(false)
     }
     if (errors) {
       console.log(errors)
     }
   }
 
+
   const handleLikeButton = async () => {
     if (like) {
+      dispatch(unlikePost({ post_id, profile_id: my_profile_id }))
       await handleUnlike()
-      setLikeCount(likeCount - 1)
+      setLike(false)
     } else {
+      dispatch(likePost({ post_id, profile_id: my_profile_id }))
       await handleLike()
-      setLikeCount(likeCount + 1)
+      setLike(true)
     }
   }
 
-  useEffect(() => {
-    const getLike = async () => {
-      if (item.id) {
-        const { data, error } = await GetLikeCount[0]({ variables: { PostId: item.id } })
-        if (data) {
-          console.log(data)
-          data.getLikesDetail.likes.map((like: any) => {
-            if (like.userIdLiked === item.userId)
-              setLike(true)
-            setLikeCount(data.getLikesDetail.likes.length)
-            if (error?.message === 'No likes found') {
-              setLikeCount(0)
-            }
-          })
-        }
-        getLike()
-      }
-    }
-  }, [item.id])
-
   return (
     <View>
-      <Text style={styles.likes}>{likeCount} Likes</Text>
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+      }}>
+        <Text style={styles.likes}>{likeCount} Likes</Text>
+        <Text style={styles.likes}>{commentCount} Comments</Text>
+      </View>
       <Divider width={0.5} />
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => handleLikeButton()} style={styles.actionButton}>
@@ -104,7 +86,11 @@ const Footer = ({ item }: { item: any }) => {
             <Image source={{ uri: "https://img.icons8.com/fluency-systems-filled/1000/bdbdbd/facebook-like--v1.png" }} style={{ height: 30, width: 30 }} />}
           <Text style={styles.actionText}>Like</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity style={styles.actionButton} onPress={
+          () => {
+            navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id })
+          }
+        }>
           <Image source={{ uri: "https://img.icons8.com/fluency-systems-regular/1000/bdbdbd/speech-bubble.png" }} style={{ height: 30, width: 30 }} />
           <Text style={styles.actionText}>Comment</Text>
         </TouchableOpacity>
