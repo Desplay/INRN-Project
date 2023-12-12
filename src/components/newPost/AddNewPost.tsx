@@ -6,7 +6,7 @@ import PostForm from './PostForm'
 const AddNewPost = ({ navigation }: { navigation: any }) => {
 	return (
 		<View style={styles.container}>
-			<Header navigation={navigation} />
+			<Header navigation={navigation} title={"NEW POST"}/>
 			<PostForm />
 		</View>
 	)
