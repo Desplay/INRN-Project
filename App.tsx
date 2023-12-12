@@ -9,21 +9,26 @@ import { useEffect } from 'react';
 import dbServices from '@utils/dbServices';
 import StackNavigation from '@navigations/StackNavigation';
 import followStore from '@features/followStore';
+import postStore from '@features/postStore';
 
 const store = configureStore({
   reducer: {
     token: tokenStore,
     follow: followStore,
+    posts: postStore,
   },
 });
 
 const AppContainer = () => {
   const dispatch = useDispatch()
 
+  
+
   useEffect(() => {
     async function getToken() {
       if (!await dbServices.getTableExists('localStorage')) {
         await dbServices.createTable('localStorage', ['field', 'value'])
+        await dbServices.insertData('localStorage', ['field', 'value'], ['profile_id', ''])
         await dbServices.insertData('localStorage', ['field', 'value'], ['token', ''])
       }
     }
@@ -33,8 +38,9 @@ const AppContainer = () => {
   useEffect(() => {
     async function getToken() {
       const token = await dbServices.getData('localStorage', ['field', 'value'], 'field = "token"')
-      if (token[0].value !== '') {
-        dispatch(saveToken(token[0].value))
+      const profile_id = await dbServices.getData('localStorage', ['field', 'value'], 'field = "profile_id"')
+      if (token[0].value !== '' || profile_id[0].value !== '') {
+        dispatch(saveToken({ token: token[0].value, profile_id: profile_id[0].value }))
       }
     }
     getToken()
