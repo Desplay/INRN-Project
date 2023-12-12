@@ -14,6 +14,7 @@ const ConfirmCode = ({ navigation, item }: { navigation: any, item: any }) => {
             verifyAccount(code: $code, email: $email)
         }`,
         {
+            
             onError: (err) => {
                 if (err.message !== "Network request failed") {
                     Alert.alert('Error', err.message)

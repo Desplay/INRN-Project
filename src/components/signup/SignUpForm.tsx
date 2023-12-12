@@ -22,6 +22,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         }
         `,
         {
+            
             onError: (err) => {
                 if (err.message !== "Network request failed") {
                     Alert.alert('Error', err.message)

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const TokenEmtpy = {
   token: "",
+  profile_id: "",
 };
 
 const tokenStore = createSlice({
@@ -9,11 +10,13 @@ const tokenStore = createSlice({
   initialState: TokenEmtpy,
   reducers: {
     saveToken: (state, action) => {
-        state.token = action.payload;
+      state.token = action.payload.token;
+      state.profile_id = action.payload.profile_id;
     },
     removeToken: (state) => {
-        state.token = "";
-    }
+      state.token = "";
+      state.profile_id = "";
+    },
   },
 });
 

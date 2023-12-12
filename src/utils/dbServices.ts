@@ -85,7 +85,6 @@ const getData = async (
         condition ? `WHERE ${condition}` : ""
       }`
     );
-    console.log(data);
   });
   if ("error" in data || data.rows.length === 0) {
     return false;
