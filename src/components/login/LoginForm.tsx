@@ -1,11 +1,12 @@
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveToken } from '@features/tokenStore'
 import dbServices from '@utils/dbServices'
 import { Alert } from 'react-native'
+import { useEffect } from 'react'
 
 const loginSchema = Yup.object().shape({
     username: Yup.string().required('Username or Email is required'),
@@ -13,6 +14,26 @@ const loginSchema = Yup.object().shape({
 })
 
 const LoginForm = ({ navigation }: { navigation: any }) => {
+
+    const token = useSelector((state: any) => state.token).token
+
+    useEffect(() => {
+        if (token) {
+            navigation.navigate('HomeScreen' as any)
+        }
+    }, [token])
+
+    useEffect(() => {
+        const getToken = async () => {
+            const token = await dbServices.getData('localStorage', ['field', 'value'], 'field = "token"')
+            const profile_id = await dbServices.getData('localStorage', ['field', 'value'], 'field = "profile_id"')
+            if (token[0].value !== '' && profile_id[0].value !== '') {
+                dispatch(saveToken({ token: token[0].value, profile_id: profile_id[0].value }))
+            }
+        }
+        getToken()
+    }, [])
+
     const dispatch = useDispatch();
 
     const [SignIn] = useMutation(
@@ -31,16 +52,14 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
                     Alert.alert('Error', err.message)
                 }
             },
-            onCompleted: async (data) => {
-                const token = data.SignIn.token
-                dispatch(saveToken(token))
-                await dbServices.updateData('localStorage', ['field', 'value'], ['token', token], 'field = "token"')
-                if (navigation.getState().routes?.length !== 1)
-                    navigation.goBack()
-                else
-                    navigation.navigate('BottomNavigation' as any)
+            onCompleted: async (token) => {
+                const Newtoken = token.SignIn.token
+                dispatch(saveToken({ token: Newtoken }))
+                await dbServices.updateData('localStorage', ['field', 'value'], ['token', Newtoken], 'field = "token"')
+                navigation.navigate('HomeScreen' as any)
             },
         });
+
     return (
         <View style={styles.warpper}>
             <Formik
