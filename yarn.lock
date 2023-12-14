@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@apollo/client@^3.7.0", "@apollo/client@^3.8.8":
+"@apollo/client@^3.8.8":
   version "3.8.8"
   resolved "https://registry.npmjs.org/@apollo/client/-/client-3.8.8.tgz"
   integrity sha512-omjd9ryGDkadZrKW6l5ktUAdS4SNaFOccYQ4ZST0HLW83y8kQaSZOCTNlpkoBUK8cv6qP8+AxOKwLm2ho8qQ+Q==
@@ -2079,20 +2079,6 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@types/apollo-upload-client@^17.0.5":
-  version "17.0.5"
-  resolved "https://registry.npmjs.org/@types/apollo-upload-client/-/apollo-upload-client-17.0.5.tgz"
-  integrity sha512-rPKHaE4QNd06LNtBgz6hfntVO+pOQMS2yTcynrzBPg9+a/nbtJ2gus5KgzRp2rqfzmnKEc/sRGjLen/9Ot0Z2A==
-  dependencies:
-    "@apollo/client" "^3.7.0"
-    "@types/extract-files" "*"
-    graphql "14 - 16"
-
-"@types/extract-files@*":
-  version "8.1.3"
-  resolved "https://registry.npmjs.org/@types/extract-files/-/extract-files-8.1.3.tgz"
-  integrity sha512-FQT1aXHL4NuSK44A9w3aFVG3p7q04uWnKNreGVoF0jno2SlWaMuaUjUZ6If0sVPEen3UVqYxdsEPJQLpvbkHEg==
-
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.5"
   resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.5.tgz"
@@ -2356,13 +2342,6 @@ anymatch@^3.0.3:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-upload-client@^18.0.1:
-  version "18.0.1"
-  resolved "https://registry.yarnpkg.com/apollo-upload-client/-/apollo-upload-client-18.0.1.tgz#e3811f2f5a36bffef23954f796daf331be748dcb"
-  integrity sha512-OQvZg1rK05VNI79D658FUmMdoI2oB/KJKb6QGMa2Si25QXOaAvLMBFUEwJct7wf+19U8vk9ILhidBOU1ZWv6QA==
-  dependencies:
-    extract-files "^13.0.0"
-
 appdirsjs@^1.2.4:
   version "1.2.7"
   resolved "https://registry.npmjs.org/appdirsjs/-/appdirsjs-1.2.7.tgz"
@@ -2545,6 +2524,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/base-64/-/base-64-0.1.0.tgz"
+  integrity sha512-Y5gU45svrR5tI2Vt/X9GPd3L0HNIKzGu202EjxrXMpuc2V2CiKgemAbUUsqYmZJvPtCXoUKjNZwBJzsNScUbXA==
 
 base64-js@^1.1.2, base64-js@^1.2.3, base64-js@^1.3.1, base64-js@^1.5.1:
   version "1.5.1"
@@ -3473,6 +3457,13 @@ expo-sharing@~11.5.0:
   resolved "https://registry.npmjs.org/expo-sharing/-/expo-sharing-11.5.0.tgz"
   integrity sha512-uerM5YH1FKDZXfkP9ORebvlMVOPP/AfoYgYBez6a8G9fztNYHnRCA6mgK+3aQmpnb3ltmjnAZC39kH18bTNcVw==
 
+expo-splash-screen@~0.20.5:
+  version "0.20.5"
+  resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.20.5.tgz"
+  integrity sha512-nTALYdjHpeEA30rdOWSguxn72ctv8WM8ptuUgpfRgsWyn4i6rwYds/rBXisX69XO5fg+XjHAQqijGx/b28+3tg==
+  dependencies:
+    "@expo/prebuild-config" "6.2.6"
+
 expo-sqlite@~11.3.3:
   version "11.3.3"
   resolved "https://registry.npmjs.org/expo-sqlite/-/expo-sqlite-11.3.3.tgz"
@@ -3510,13 +3501,6 @@ expo@^49.0.21:
     node-fetch "^2.6.7"
     pretty-format "^26.5.2"
     uuid "^3.4.0"
-
-extract-files@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.npmjs.org/extract-files/-/extract-files-13.0.0.tgz"
-  integrity sha512-FXD+2Tsr8Iqtm3QZy1Zmwscca7Jx3mMC5Crr+sEP1I303Jy1CYMuYCm7hRTplFNg3XdUavErkxnTzpaqdSoi6g==
-  dependencies:
-    is-plain-obj "^4.1.0"
 
 fast-deep-equal@^3.1.3:
   version "3.1.3"
@@ -3875,15 +3859,15 @@ graphql-tag@^2.10.1, graphql-tag@^2.12.6:
   dependencies:
     tslib "^2.1.0"
 
-"graphql@14 - 16", graphql@^16.8.1:
-  version "16.8.1"
-  resolved "https://registry.npmjs.org/graphql/-/graphql-16.8.1.tgz"
-  integrity sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==
-
 graphql@15.8.0:
   version "15.8.0"
   resolved "https://registry.npmjs.org/graphql/-/graphql-15.8.0.tgz"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
+
+graphql@^16.8.1:
+  version "16.8.1"
+  resolved "https://registry.npmjs.org/graphql/-/graphql-16.8.1.tgz"
+  integrity sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==
 
 has-flag@^3.0.0:
   version "3.0.0"
@@ -4183,11 +4167,6 @@ is-plain-obj@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-2.1.0.tgz"
   integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
-
-is-plain-obj@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-4.1.0.tgz"
-  integrity sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==
 
 is-plain-object@^2.0.4:
   version "2.0.4"
@@ -5745,6 +5724,14 @@ react-native-elements@^3.4.3:
     react-native-ratings "8.0.4"
     react-native-size-matters "^0.3.1"
 
+react-native-fs@^2.20.0:
+  version "2.20.0"
+  resolved "https://registry.npmjs.org/react-native-fs/-/react-native-fs-2.20.0.tgz"
+  integrity sha512-VkTBzs7fIDUiy/XajOSNk0XazFE9l+QlMAce7lGuebZcag5CnjszB+u4BdqzwaQOdcYb5wsJIsqq4kxInIRpJQ==
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^3.0.0"
+
 react-native-modal@^13.0.1:
   version "13.0.1"
   resolved "https://registry.npmjs.org/react-native-modal/-/react-native-modal-13.0.1.tgz"
@@ -6872,6 +6859,11 @@ use-sync-external-store@^1.0.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+
+utf8@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/utf8/-/utf8-3.0.0.tgz"
+  integrity sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==
 
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"

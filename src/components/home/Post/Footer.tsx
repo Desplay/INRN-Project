@@ -107,12 +107,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 5,
   },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 5,
   },
   actionText: {

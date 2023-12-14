@@ -56,7 +56,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
                         <View style={styles.inputField}>
                             <TextInput
                                 style={{ color: 'white' }}
-                                placeholder='Username or Email'
+                                placeholder='Username'
                                 placeholderTextColor='gray'
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}

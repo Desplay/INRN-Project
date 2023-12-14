@@ -21,6 +21,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
 	const token = useSelector((state: any) => state.token).token
 	const dispatch = useDispatch()
+	const focused = useIsFocused()
+	const followings = useSelector((state: any) => state.follow).followings
 
 	const { data } = useQuery(
 		gql`
@@ -38,21 +40,14 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 	)
 
 	useEffect(() => {
+			console.log('home')
 		if (data) {
 			dispatch(saveToken({ token: token, profile_id: data?.ShowMyProfile?.id }))
 		}
-	}, [data])
-
-	const focused = useIsFocused()
-	const followings = useSelector((state: any) => state.follow).followings
-
-	useEffect(() => {
 		if (focused && !token) {
 			navigation.navigate('LoginScreen')
 		}
-
-	}, [token])
-
+	}, [focused])
 
 	const keyGenerator = () => '_' + Math.random().toString(36)
 

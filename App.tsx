@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import tokenStore, { saveToken } from '@features/tokenStore';
 import client from '@utils/graphqlServices';
@@ -22,7 +22,7 @@ const store = configureStore({
 const AppContainer = () => {
   const dispatch = useDispatch()
 
-  
+
 
   useEffect(() => {
     async function getToken() {
@@ -33,7 +33,7 @@ const AppContainer = () => {
       }
     }
     getToken()
-  })
+  }, [])
 
   useEffect(() => {
     async function getToken() {
@@ -54,6 +54,12 @@ const AppContainer = () => {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
 export default function App() {
   return (
     <ApolloProvider client={client}>
@@ -63,9 +69,3 @@ export default function App() {
     </ApolloProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

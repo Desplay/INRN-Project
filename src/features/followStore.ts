@@ -15,16 +15,14 @@ const followSlice = createSlice({
     saveFollowers(state, action) {
       state.followers = action.payload;
     },
-    clearFollowings(state) {
-      state.followings = [];
-    },
-    clearFollowers(state) {
-      state.followers = [];
+    clearFollow(state) {
+      state.followers = initialState.followers;
+      state.followings = initialState.followings;
     },
   },
 });
 
-export const { saveFollowings, saveFollowers, clearFollowings, clearFollowers } =
+export const { saveFollowings, saveFollowers, clearFollow } =
   followSlice.actions;
 
 export default followSlice.reducer;

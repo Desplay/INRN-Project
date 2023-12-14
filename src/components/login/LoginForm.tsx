@@ -7,7 +7,6 @@ import { saveToken } from '@features/tokenStore'
 import dbServices from '@utils/dbServices'
 import { Alert } from 'react-native'
 import { useEffect } from 'react'
-
 const loginSchema = Yup.object().shape({
     username: Yup.string().required('Username or Email is required'),
     password: Yup.string().required('Password is required'),
@@ -56,7 +55,7 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
                 const Newtoken = token.SignIn.token
                 dispatch(saveToken({ token: Newtoken }))
                 await dbServices.updateData('localStorage', ['field', 'value'], ['token', Newtoken], 'field = "token"')
-                navigation.navigate('HomeScreen' as any)
+                navigation.navigate('HomeScreen' as any, { reload: true})
             },
         });
 
@@ -64,14 +63,16 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
         <View style={styles.warpper}>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={(values) => {
-                    SignIn({
+                onSubmit={async (values) => {
+                    await SignIn({
                         variables: {
                             email: values.username.includes('@') ? values.username : '',
                             password: values.password,
                             username: values.username.includes('@') ? '' : values.username,
                         }
                     });
+                    values.password = ''
+                    values.username = ''
                 }
                 }
                 validationSchema={loginSchema}

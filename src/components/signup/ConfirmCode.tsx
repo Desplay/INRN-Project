@@ -10,8 +10,8 @@ const ConfirmCode = ({ navigation, item }: { navigation: any, item: any }) => {
     const [code, setCode] = useState('');
 
     const [verifyAccount] = useMutation(
-        gql`mutation verifyAccount($code: String!, $email: String!) {
-            verifyAccount(code: $code, email: $email)
+        gql`mutation verifyAccount($OTPCode: String!, $email: String!) {
+            verifyAccount(OTPCode: $OTPCode, email: $email)
         }`,
         {
             

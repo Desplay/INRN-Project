@@ -50,17 +50,17 @@ const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any
 
 const styles = StyleSheet.create({
     noneAvatar: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         marginRight: 10,
         borderRadius: 25,
         borderWidth: 1,
         borderColor: '#fff',
-        backgroundColor: '#bdbdbd',
+        backgroundColor: '#575757',
     },
     avatar: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderRadius: 25,
         marginRight: 10,
     },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
         color: '#fff',
     },
     caption: {

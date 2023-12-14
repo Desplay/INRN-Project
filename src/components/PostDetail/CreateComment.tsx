@@ -3,21 +3,37 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Divider } from 'react-native-elements'
 import { useState } from 'react'
+import { gql, useMutation } from '@apollo/client'
+import { useSelector } from 'react-redux'
 
 const validationSchema = Yup.object().shape({
     body: Yup.string().required().min(1).label('Comment'),
 })
 
-const CreateComment = ({ navigation }: { navigation: any }) => {
+const CreateComment = ({ navigation, postId }: { navigation: any, postId: any }) => {
+
+    const token = useSelector((state: any) => state.token).token
+
     const [height, setHeight] = useState(0);
+
+    const [CreateComment] = useMutation(
+        gql`
+            mutation CreateComment($PostId: String!, $body: String!) {
+                commentInPost(Comment: { 
+                    PostId: $PostId, 
+                    body: $body 
+                    }) 
+            }`, { context: { headers: { authorization: token } } }
+    )
+
     return (
         <>
             <Divider width={0.25} style={{ backgroundColor: '#bdbdbd' }} />
             <Formik
                 initialValues={{ body: '' }}
-                onSubmit={(values, { resetForm }) => {
-                    console.log(values)
-                    { resetForm }
+                onSubmit={async (values, { resetForm }) => {
+                    await CreateComment({ variables: { PostId: postId, body: values.body } })
+                    resetForm()
                 }}
                 validationSchema={validationSchema}
             >
@@ -26,10 +42,10 @@ const CreateComment = ({ navigation }: { navigation: any }) => {
                         <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                             <TextInput
                                 style={{
-                                    height: Math.max(50, height),
+                                    height: Math.max(40, height),
                                     width: '95%',
                                     paddingLeft: 20,
-                                    margin: 20,
+                                    margin: 10,
                                     color: '#fff',
                                     fontSize: 16,
                                     backgroundColor: '#212121',

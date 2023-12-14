@@ -2,7 +2,6 @@ import Header from '@components/newPost/Header';
 import PostCard from '@components/home/PostCard';
 import { StyleSheet, SafeAreaView, StatusBar, View, Text } from 'react-native';
 import ShowCommentList from '@components/PostDetail/ShowCommentList';
-import { Divider } from 'react-native-elements/dist/divider/Divider';
 import CreateComment from '@components/PostDetail/CreateComment';
 import { ScrollView } from 'react-native-virtualized-view';
 
@@ -13,7 +12,6 @@ const PostDetailScreen = ({ navigation, route }: { navigation: any, route: any }
       <ScrollView>
         <Header navigation={navigation} title={"POSTS"} />
         <PostCard item={item.item} profile_id={item.profile_id} navigation={navigation} />
-        <Divider width={0.25} style={{ backgroundColor: '#bdbdbd' }} />
         <ShowCommentList item={item.item} profile_id={item.profile_id} navigation={navigation} />
         <View style={{
           position: 'absolute',
@@ -22,7 +20,7 @@ const PostDetailScreen = ({ navigation, route }: { navigation: any, route: any }
         }}>
         </View>
       </ScrollView>
-      <CreateComment navigation={navigation} />
+      <CreateComment navigation={navigation} postId={item.item.id}/>
     </SafeAreaView >
   );
 };
