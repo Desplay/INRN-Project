@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { likePost, unlikePost } from '@features/postStore';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,20 +37,14 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
   )
 
   const handleLike = async () => {
-    const { data, errors } = await Liked({ variables: { post_id } })
-    if (data) {
-      console.log(data)
-    }
+    const { errors } = await Liked({ variables: { post_id } })
     if (errors) {
       console.log(errors)
     }
   }
 
   const handleUnlike = async () => {
-    const { data, errors } = await Unliked({ variables: { post_id } })
-    if (data) {
-      console.log(data)
-    }
+    const { errors } = await Unliked({ variables: { post_id } })
     if (errors) {
       console.log(errors)
     }
