@@ -1,8 +1,10 @@
 import { View, Text, Image, TextInput, Button, TouchableOpacity } from 'react-native'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';1
 import { Divider } from 'react-native-elements';
+
+
 
 const PLANCEHOLDER_IMG = 'https://img.icons8.com/ios/500/ffffff/camera--v4.png'
 
@@ -16,7 +18,7 @@ const PostForm = () => {
     return (
         <Formik
             initialValues={{ imageUrl: '', title: '', content: '' }}
-            onSubmit={(values) => {
+            onSubmit={(values: any) => {
                 const time = new Date()
                 const Hour = time.toLocaleTimeString().split(":")[0] + ":" + time.toLocaleTimeString().split(":")[1]
                 values.title = `Đăng vào lúc ${Hour} ${time.toLocaleDateString()}`
@@ -44,6 +46,7 @@ const PostForm = () => {
                                             quality: 1,
                                         });
                                         if (!result.canceled) {
+                                            console.log(result)
                                             handleChange('imageUrl')(result.assets[0].uri);
                                         }
                                     }}>
