@@ -1,6 +1,4 @@
 import { View, Text, FlatList } from 'react-native'
-import React from 'react'
-import { gql, useQuery } from '@apollo/client'
 import CommentCard from './CommentCard'
 
 const ShowCommentList = ({ item, profile_id, navigation }: { item: any, profile_id: any, navigation: any }) => {

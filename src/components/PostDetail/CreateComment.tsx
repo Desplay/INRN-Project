@@ -4,7 +4,8 @@ import { Formik } from 'formik'
 import { Divider } from 'react-native-elements'
 import { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { commentPost } from '@features/postStore'
 
 const validationSchema = Yup.object().shape({
     body: Yup.string().required().min(1).label('Comment'),
@@ -13,6 +14,7 @@ const validationSchema = Yup.object().shape({
 const CreateComment = ({ navigation, postId }: { navigation: any, postId: any }) => {
 
     const token = useSelector((state: any) => state.token).token
+    const dispatch = useDispatch()
 
     const [height, setHeight] = useState(0);
 
@@ -33,6 +35,7 @@ const CreateComment = ({ navigation, postId }: { navigation: any, postId: any })
                 initialValues={{ body: '' }}
                 onSubmit={async (values, { resetForm }) => {
                     await CreateComment({ variables: { PostId: postId, body: values.body } })
+                    dispatch(commentPost({ postId: postId, comment: { body: values.body } }))
                     resetForm()
                 }}
                 validationSchema={validationSchema}
