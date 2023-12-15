@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 const LoginScreen = ({ navigation }: { navigation: any }) => {
 
   const token = useSelector((state: any) => state.token).token
-
   const focused = useIsFocused()
   const dispatch = useDispatch()
 

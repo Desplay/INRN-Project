@@ -10,12 +10,14 @@ import dbServices from '@utils/dbServices';
 import StackNavigation from '@navigations/StackNavigation';
 import followStore from '@features/followStore';
 import postStore from '@features/postStore';
+import myPostStore from '@features/myPostStore';
 
 const store = configureStore({
   reducer: {
     token: tokenStore,
     follow: followStore,
     posts: postStore,
+    myPosts: myPostStore,
   },
 });
 

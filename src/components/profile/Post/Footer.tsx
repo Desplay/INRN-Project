@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { likePost, unlikePost } from '@features/postStore';
+import { likePost, unlikePost } from '@features/myPostStore';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Divider } from 'react-native-elements';
@@ -9,9 +9,9 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
 
   const token = useSelector((state: any) => state.token).token
   const my_profile_id = useSelector((state: any) => state.token).profile_id
-  const commentCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].comments.length
-  const likeCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likesCount
-  const likeList = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likes
+  const commentCount = useSelector((state: any) => state.myPosts).posts.filter((post: any) => post.id == item.id)[0].comments.length
+  const likeCount = useSelector((state: any) => state.myPosts).posts.filter((post: any) => post.id == item.id)[0].likesCount
+  const likeList = useSelector((state: any) => state.myPosts).posts.filter((post: any) => post.id == item.id)[0].likes
   const [like, setLike] = likeList?.filter((like: any) => like.profileIdLiked == my_profile_id).length > 0 ? useState(true) : useState(false)
   const dispatch = useDispatch()
   const post_id = item.id

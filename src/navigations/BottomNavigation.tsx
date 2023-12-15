@@ -118,6 +118,11 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
                 },
             }} />
             <Navigation.Screen name="ProfileScreen" component={ProfileScreen} options={{
+                // @ts-ignore
+                header(props) {
+                    props.options.title = ''
+                    return props
+                },
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'ProfileScreen') }} style={{ width: 30, height: 30 }} />
                 },

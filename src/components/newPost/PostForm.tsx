@@ -62,7 +62,6 @@ const PostForm = ({ navigation }: { navigation: any }) => {
 					navigation.navigate('HomeScreen')
 					return
 				}
-				console.log(result.errors)
 				return
 			}}
 			validationSchema={uploadPostSchema}

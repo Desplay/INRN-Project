@@ -40,7 +40,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 	)
 
 	useEffect(() => {
-			console.log('home')
 		if (data) {
 			dispatch(saveToken({ token: token, profile_id: data?.ShowMyProfile?.id }))
 		}

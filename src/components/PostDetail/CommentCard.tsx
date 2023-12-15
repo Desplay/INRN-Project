@@ -21,9 +21,6 @@ const CommentCard = ({ comment, profile_id, navigation }: { comment: any, profil
             
             variables: { profile_id: comment.profile_id },
             context: { headers: { authorization: token } },
-            onError: (err) => {
-                console.log(err)
-            },
         }
     );
 
