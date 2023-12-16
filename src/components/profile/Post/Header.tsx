@@ -15,12 +15,8 @@ const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any
             }
       }`,
         {
-            
-            variables: { profile_id: profile_id },
             context: { headers: { authorization: token } },
-            onError: (err) => {
-                console.log(err)
-            },
+            variables: { profile_id: profile_id },
         }
     );
 

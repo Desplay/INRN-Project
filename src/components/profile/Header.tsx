@@ -1,6 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { removeToken } from '@features/tokenStore';
 import dbServices from '@utils/dbServices';
+import client from '@utils/graphqlServices';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,9 +24,11 @@ const Header = ({ navigation }: { navigation: any }) => {
   const handleSignOut = async () => {
       dispatch(removeToken())
       await SignOut({ context: { headers: { authorization: token } } });
+      client.clearStore();
       navigation.navigate('HomeScreen' as any)
       navigation.navigate('LoginScreen' as any)
   }
+
   return (
     <View style={styles.container}>
      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>

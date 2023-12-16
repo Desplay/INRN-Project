@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '@components/home/Post/Container'
 import { useSelector } from 'react-redux';
 import { gql, useQuery } from '@apollo/client';
@@ -8,7 +8,16 @@ const Header = () => {
 
   const token = useSelector((state: any) => state.token).token;
   const following = useSelector((state: any) => state.follow).followings;
+  const myPosts = useSelector((state: any) => state.myPosts).posts;
   const followers = useSelector((state: any) => state.follow).followers;
+  const [profile, setProfile] = useState({
+    id: '',
+    avatarUri: '',
+    birthday: '',
+    age: '',
+    name: '',
+    description: '',
+  })
 
   const { data, loading } = useQuery(
     gql`
@@ -23,14 +32,15 @@ const Header = () => {
         }
       }`,
     {
-      fetchPolicy: 'network-only',
       context: { headers: { authorization: token } },
+      onCompleted: (data) => {
+        setProfile(data?.ShowMyProfile)
+      },
     }
   );
 
-  if (loading) return (<View></View>);
+  if (loading || !profile.id) return (<View></View>);
 
-  const profile = data?.ShowMyProfile
   return (
     <>
       <View style={styles.container}>
@@ -47,7 +57,7 @@ const Header = () => {
         <View style={{ flexDirection: 'row', paddingRight: 30, width: '70%', justifyContent: 'center' }}>
           <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>
-              {followers.length}
+              {followers ? followers.length : 0}
             </Text>
             <Text style={{ fontSize: 18, color: 'white' }}>
               Followers
@@ -55,10 +65,18 @@ const Header = () => {
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>
-              {following.length}
+              {following ? following.length : 0}
             </Text>
             <Text style={{ fontSize: 18, color: 'white' }}>
               Following
+            </Text>
+          </View>
+          <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>
+              {myPosts ? myPosts.length : 0}
+            </Text>
+            <Text style={{ fontSize: 18, color: 'white' }}>
+              Posts
             </Text>
           </View>
         </View>
@@ -66,7 +84,7 @@ const Header = () => {
       <View>
         <Text style={{ color: 'white', fontSize: 18, marginHorizontal: 20, marginTop: 10 }}>{profile.description}</Text>
       </View>
-      </>
+    </>
   )
 }
 

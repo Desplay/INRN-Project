@@ -15,6 +15,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     dispatch(clearPosts())
     dispatch(clearFollow())
+    dispatch(clearPosts())
   }, [focused])
 
   useEffect(() => {

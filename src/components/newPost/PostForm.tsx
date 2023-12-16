@@ -26,7 +26,6 @@ const PostForm = ({ navigation }: { navigation: any }) => {
 				const time = new Date()
 				const Hour = time.toLocaleTimeString().split(":")[0] + ":" + time.toLocaleTimeString().split(":")[1]
 				values.title = `Đăng vào lúc ${Hour} ${time.toLocaleDateString()}`
-
 				const query = `mutation ($title: String!, $content: String!, $File: File) {
 					createPost(PostInput: {
 						title: $title
