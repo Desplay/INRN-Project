@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "INRN Project",
+    "slug": "INRN-Project",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/logo/IconApp.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./src/assets/logo/splashApp.png",
+      
+      "backgroundColor": "#101010"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -17,8 +17,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/logo/IconApp.png",
+        "backgroundColor": "#101010"
       },
       "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.desplayshido.INRN.Project"
