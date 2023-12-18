@@ -3,19 +3,20 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
 
 const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any, navigation: any }) => {
+
     const token = useSelector((state: any) => state.token).token;
     const { data, loading } = useQuery(
         gql`
             query showProfile($profile_id: String!) {
                 ShowProfile(profile_id: $profile_id) {
-                id
                 name
                 avatarUri
             }
       }`,
         {
-            variables: { profile_id: profile_id },
+            fetchPolicy: 'no-cache',
             context: { headers: { authorization: token } },
+            variables: { profile_id: profile_id },
         }
     );
 
@@ -31,11 +32,7 @@ const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any
         return (<Image source={require("@assets/avatar/user1.png")} style={styles.noneAvatar} />)
     }
     return (
-        <TouchableOpacity onPress={
-            () => {
-                navigation.navigate('GuestProfileScreen', { profile_id: profile_id })
-            }
-        }>
+        <TouchableOpacity onPress={() => navigation.navigate('GuestProfileScreen', { profile_id: profile_id })}>
             <View style={styles.header}>
                 <ImageGenetor />
                 <View style={styles.headerContent}>

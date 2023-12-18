@@ -5,6 +5,8 @@ import ProfileScreen from '@screens/ProfileScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import SearchScreen from '@screens/SearchScreen'
+import NotificationScreen from '@screens/NotificationScreen'
 
 
 const NavigationIcons = [
@@ -102,17 +104,17 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
                     )
                 },
             }} />
-            <Navigation.Screen name="SearchScreen" component={NoneCoponent} options={{
+            <Navigation.Screen name="SearchScreen" component={SearchScreen} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'SearchScreen') }} style={{ width: 30, height: 30 }} />
                 },
             }} />
-            <Navigation.Screen name="MediaScreen" component={NoneCoponent} options={{
+            {/* <Navigation.Screen name="MediaScreen" component={NoneCoponent} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'MediaScreen') }} style={{ width: 30, height: 30 }} />
                 },
-            }} />
-            <Navigation.Screen name="NotificationScreen" component={NoneCoponent} options={{
+            }} /> */}
+            <Navigation.Screen name="NotificationScreen" component={NotificationScreen} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'NotificationScreen') }} style={{ width: 30, height: 30 }} />
                 },

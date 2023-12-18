@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { likePost, unlikePost } from '@features/myPostStore';
+// import { likePost, unlikePost } from '@features/myPostStore';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Divider } from 'react-native-elements';
@@ -46,15 +46,15 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
 
 
   const handleLikeButton = async () => {
-    if (like) {
-      dispatch(unlikePost({ post_id, profile_id: my_profile_id }))
-      await handleUnlike()
-      setLike(false)
-    } else {
-      dispatch(likePost({ post_id, profile_id: my_profile_id }))
-      await handleLike()
-      setLike(true)
-    }
+    // if (like) {
+    //   dispatch(unlikePost({ post_id, profile_id: my_profile_id }))
+    //   await handleUnlike()
+    //   setLike(false)
+    // } else {
+    //   dispatch(likePost({ post_id, profile_id: my_profile_id }))
+    //   await handleLike()
+    //   setLike(true)
+    // }
   }
 
   return (
@@ -76,7 +76,7 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={
           () => {
-            navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id })
+            navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: "ProfileScreen" })
           }
         }>
           <Image source={{ uri: "https://img.icons8.com/fluency-systems-regular/1000/bdbdbd/speech-bubble.png" }} style={{ height: 30, width: 30 }} />

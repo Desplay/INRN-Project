@@ -36,9 +36,6 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
         }`,
 		{
 			context: { headers: { authorization: token } },
-			onError: (err) => {
-				console.log(err)
-			},
 		}
 	)
 
@@ -52,9 +49,6 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 		  }
 		}`, {
 		context: { headers: { authorization: token } },
-		onError: (err) => {
-			console.log(err)
-		},
 	}
 	)
 

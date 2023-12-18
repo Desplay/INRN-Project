@@ -11,7 +11,7 @@ const Container = ({ item, navigation, profile_id }: { item: any, navigation: an
   return (
     <View >
       <TouchableOpacity onPress={() => {
-        navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id })
+        navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: 'ProfileScreen' })
       }}>
         <Text style={styles.text}>{item.content}</Text>
         {item.imageUrl ?

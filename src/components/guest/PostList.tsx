@@ -1,22 +1,25 @@
 import { FlatList, View } from 'react-native';
-import PostCard from '@components/profile/PostCard';
+import PostCard from '@components/guest/PostCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { gql, useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { saveMyPosts } from '@features/myPostStore';
+import { saveGuestPosts } from '@features/guestPostStore';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any }) => {
 
 	const keyGenerator = () => '_' + Math.random().toString(36)
 	const token = useSelector((state: any) => state.token).token
-	const Myposts = useSelector((state: any) => state.myPosts).posts
+	const guestPosts = useSelector((state: any) => state.guestPosts).posts
+	const focused = useIsFocused()
 	const dispatch = useDispatch()
 
 	const getPosts = useLazyQuery(
 		gql`
-        query getAllPosts {
-            getAllPosts {
+        query getPostsByProfileId($profile_id: String!) {
+            getPostsByProfileId (profile_id: $profile_id) {
                 posts {
                   id
                   title
@@ -35,6 +38,7 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
               }
         }`,
 		{
+			fetchPolicy: 'network-only',
 			context: { headers: { authorization: token } },
 		}
 	)
@@ -55,27 +59,30 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 	useEffect(() => {
 		const getPost = async () => {
 			if (profile_id) {
-				const { data: Posts } = await getPosts[0]()
+				const { data: Posts, loading } = await getPosts[0]({ variables: { profile_id } })
 				if (!Posts) {
 					dispatch(saveMyPosts([]))
 					return
 				}
-				const newPosts = []
-				for await (const post of Posts.getAllPosts.posts) {
-					const { data } = await getLikes[0]({ variables: { post_id: post.id } })
-					const likes = data?.getLikesDetail?.likes ? data?.getLikesDetail?.likes : []
-					newPosts.push({
-						...post,
-						likes: likes,
-					})
+				if (!loading) {
+					const newPosts = []
+					for await (const post of Posts.getPostsByProfileId.posts) {
+						const { data } = await getLikes[0]({ variables: { post_id: post.id } })
+						const likes = data?.getLikesDetail?.likes ? data?.getLikesDetail?.likes : []
+						newPosts.push({
+							...post,
+							likes: likes,
+						})
+					}
+					dispatch(saveGuestPosts(newPosts))
 				}
-				dispatch(saveMyPosts(newPosts))
+				
 			}
 		}
 		getPost()
-	}, [token])
+	}, [profile_id])
 
-	if (!token || !profile_id || !Myposts) {
+	if (!guestPosts) {
 		return (<View></View>);
 	}
 
@@ -83,9 +90,9 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 		<View style={{ marginTop: 10 }}>
 			<FlatList
 				inverted
-				data={Myposts}
+				data={guestPosts}
 				initialNumToRender={2}
-				extraData={Myposts}
+				extraData={guestPosts}
 				nestedScrollEnabled={true}
 				renderItem={({ item }) => <PostCard item={item} profile_id={profile_id} navigation={navigation} />}
 				keyExtractor={() => keyGenerator()}

@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useEffect } from 'react'
 
 const Container = ({ item, navigation, profile_id }: { item: any, navigation: any, profile_id: any }) => {
-
   useEffect(() => {
     navigation.setOptions({
       title: item.title
@@ -12,7 +11,7 @@ const Container = ({ item, navigation, profile_id }: { item: any, navigation: an
   return (
     <View >
       <TouchableOpacity onPress={() => {
-        navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: 'HomeScreen' })
+        navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: 'GuestPostScreen' })
       }}>
         <Text style={styles.text}>{item.content}</Text>
         {item.imageUrl ?

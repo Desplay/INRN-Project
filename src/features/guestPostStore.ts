@@ -24,16 +24,16 @@ const initialState = {
 };
 
 const postSlice = createSlice({
-  name: "myPosts",
+  name: "post",
   initialState,
   reducers: {
-    saveMyPosts(state, action) {
+    saveGuestPosts(state, action) {
       state.posts = action.payload;
     },
-    clearMyPosts(state) {
+    clearGuestPosts(state) {
       state.posts = [];
     },
-    likeMyPost(state, action) {
+    likeGuestPost(state, action) {
       const { post_id, profile_id } = action.payload;
       state.posts.map((post) => {
         if (post.id === post_id) {
@@ -46,7 +46,7 @@ const postSlice = createSlice({
         return post;
       });
     },
-    unlikeMyPost(state, action) {
+    unlikeGuestPost(state, action) {
       const { post_id, profile_id } = action.payload;
       state.posts.map((post) => {
         if (post.id === post_id) {
@@ -58,22 +58,15 @@ const postSlice = createSlice({
         return post;
       });
     },
-    commentMyPost(state, action) {
-      const comment = action.payload;
-      const { post_id } = comment;
-      const post = state.posts.find((post) => post.id === post_id);
+    commentGuestPost(state, action) {
+      const { postId, comment } = action.payload;
+      const post = state.posts.find((post) => post.id === postId);
       // @ts-ignore
-      post?.comments.push(comment);
+      post.comments.push(comment);
     },
   },
 });
 
-export const {
-  saveMyPosts,
-  clearMyPosts,
-  likeMyPost,
-  unlikeMyPost,
-  commentMyPost,
-} = postSlice.actions;
-
+export const { saveGuestPosts, clearGuestPosts, likeGuestPost, unlikeGuestPost, commentGuestPost } =
+  postSlice.actions;
 export default postSlice.reducer;
