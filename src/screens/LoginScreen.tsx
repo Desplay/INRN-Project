@@ -1,21 +1,28 @@
 import LoginForm from '@components/login/LoginForm'
+import { clearFollow } from '@features/followStore'
+import { clearPosts } from '@features/postStore'
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
 
   const token = useSelector((state: any) => state.token).token
   const focused = useIsFocused()
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(clearPosts())
+    dispatch(clearFollow())
+    dispatch(clearPosts())
+  }, [focused])
 
   useEffect(() => {
     if (focused && token) {
-      console.log(token)
       navigation.navigate('HomeScreen')
     }
-  }, [token])
+  }, [focused, token])
 
   return (
     <View style={styles.container}>

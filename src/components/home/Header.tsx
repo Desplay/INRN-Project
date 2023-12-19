@@ -3,12 +3,12 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 const Header = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+     <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
         <Image style={styles.logo} source={require('@assets/logo/SpotiFive_Logo.png')} />
       </TouchableOpacity>
-      <View style={styles.iconContainer}>
+       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => {
-          navigation.push('AddPostScreen' as any)
+          navigation.navigate('AddPostScreen' as any)
         }}>
           <Image style={styles.icon} source={{ uri: 'https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png' }} />
         </TouchableOpacity>
@@ -16,9 +16,9 @@ const Header = ({ navigation }: { navigation: any }) => {
           <Image style={styles.icon} source={{ uri: 'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png' }} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <View style={styles.unreadBadge}>
+          {/* <View style={styles.unreadBadge}>
             <Text style={styles.unreadBadgeText}>11</Text>
-          </View>
+          </View> */}
           <Image style={styles.icon} source={{ uri: 'https://img.icons8.com/fluency-systems-regular/60/ffffff/facebook-messenger.png' }} />
         </TouchableOpacity>
       </View>

@@ -16,11 +16,9 @@ const UserIcon = ({ item }: { item: any }) => {
             }
       }`,
         {
+            
             variables: { profile_id: item },
             context: { headers: { authorization: token } },
-            onError: (err) => {
-                console.log(err)
-            },
         }
     );
 
@@ -29,7 +27,7 @@ const UserIcon = ({ item }: { item: any }) => {
     const profile = data?.ShowProfile
 
     return (
-        <View style={styles.container}>
+        <View>
             <TouchableOpacity style={styles.userContainer}>
                 {profile?.avatarUri ? (
                     <Image style={styles.userLogo} source={{ uri: profile.avatarUri }} />
@@ -48,16 +46,14 @@ const UserIcon = ({ item }: { item: any }) => {
 
 
 const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 10,
-    },
+
     userContainer: {
         marginHorizontal: 10,
         alignItems: 'center',
     },
     userLogoContainer: {
-        width: 60,
-        height: 60,
+        width: 55,
+        height: 55,
         borderRadius: 999,
         borderWidth: 2,
         borderColor: '#e7e7e7',
@@ -67,8 +63,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     userLogo: {
-        width: 60,
-        height: 60,
+        width: 55,
+        height: 55,
         tintColor: '#e7e7e7',
     },
 });

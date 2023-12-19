@@ -5,6 +5,8 @@ import ProfileScreen from '@screens/ProfileScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import SearchScreen from '@screens/SearchScreen'
+import NotificationScreen from '@screens/NotificationScreen'
 
 
 const NavigationIcons = [
@@ -71,15 +73,13 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
                 if (routeName !== 'ProfileScreen') {
                     navigation.navigate('ProfileScreen' as any)
                 }
-                navigation.goBack()
                 navigation.navigate('LoginScreen' as any)
             }
         }
-    })
+    }, [navigation.getState().routes[0].state])
 
     return (
         <Navigation.Navigator
-            initialRouteName='HomeScreen'
             screenOptions={{
                 title: '',
                 headerShown: false,
@@ -93,29 +93,39 @@ const BottomNavigation = ({ navigation }: { navigation: any }) => {
             }
         >
             <Navigation.Screen name="HomeScreen" component={HomeScreen} options={{
+                // @ts-ignore
+                header(props) {
+                    props.options.title = ''
+                    return props
+                },
                 tabBarIcon(props) {
-                    return <Image source={{ uri: getIcon(props, 'HomeScreen') }} style={{ width: 30, height: 30 }} />
+                    return (
+                        <Image source={{ uri: getIcon(props, 'HomeScreen') }} style={{ width: 30, height: 30 }} />
+                    )
                 },
             }} />
-            <Navigation.Screen name="SearchScreen" component={NoneCoponent} options={{
+            <Navigation.Screen name="SearchScreen" component={SearchScreen} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'SearchScreen') }} style={{ width: 30, height: 30 }} />
                 },
             }} />
-            <Navigation.Screen name="MediaScreen" component={NoneCoponent} options={{
+            {/* <Navigation.Screen name="MediaScreen" component={NoneCoponent} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'MediaScreen') }} style={{ width: 30, height: 30 }} />
                 },
-            }} />
-            <Navigation.Screen name="NotificationScreen" component={NoneCoponent} options={{
+            }} /> */}
+            <Navigation.Screen name="NotificationScreen" component={NotificationScreen} options={{
                 tabBarIcon(props) {
                     return <Image source={{ uri: getIcon(props, 'NotificationScreen') }} style={{ width: 30, height: 30 }} />
                 },
             }} />
             <Navigation.Screen name="ProfileScreen" component={ProfileScreen} options={{
+                // @ts-ignore
+                header(props) {
+                    props.options.title = ''
+                    return props
+                },
                 tabBarIcon(props) {
-
-
                     return <Image source={{ uri: getIcon(props, 'ProfileScreen') }} style={{ width: 30, height: 30 }} />
                 },
             }} />

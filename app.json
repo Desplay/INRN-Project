@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "my-app",
+    "name": "INRN Project",
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./src/assets/logo/IconApp.png",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./src/assets/logo/splashApp.png",
+      
+      "backgroundColor": "#101010"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -17,9 +17,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./src/assets/logo/IconApp.png",
+        "backgroundColor": "#101010"
+      },
+      "permissions": ["android.permission.RECORD_AUDIO"],
+      "package": "com.desplayshido.INRN.Project"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,7 +32,23 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "30.0.2",
+            "kotlinVersion": "1.7.10"
+          }
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fc535a33-4741-434e-98e8-f2b81710feb6"
+      }
+    }
   }
 }

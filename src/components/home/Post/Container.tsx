@@ -1,24 +1,24 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { gql, useLazyQuery } from '@apollo/client'
-import { useSelector } from 'react-redux'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { useEffect } from 'react'
 
-const Container = ({ item }: { item: any }) => {
-
-  const [image, setImage] = useState('https://img.icons8.com/ios/500/no-image.png')
+const Container = ({ item, navigation, profile_id }: { item: any, navigation: any, profile_id: any }) => {
 
   useEffect(() => {
-    if (item.imageUrl) {
-      setImage(item.imageUrl)
-    }
-  }, [item])
+    navigation.setOptions({
+      title: item.title
+    })
+  }, [navigation, item.title])
 
   return (
-    <View>
-      <Text style={styles.text}>{item.content}</Text>
-      {item && item.imageUrl ?
-        <Image source={{ uri: image }} style={styles.postImage} /> : <></>
-      }
+    <View >
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: 'HomeScreen' })
+      }}>
+        <Text style={styles.text}>{item.content}</Text>
+        {item.imageUrl ?
+          <Image source={{ uri: item.imageUrl }} style={styles.postImage} /> : <></>
+        }
+      </TouchableOpacity>
     </View>
   )
 }
