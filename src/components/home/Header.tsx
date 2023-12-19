@@ -3,10 +3,10 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 const Header = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+     <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
         <Image style={styles.logo} source={require('@assets/logo/SpotiFive_Logo.png')} />
       </TouchableOpacity>
-      <View style={styles.iconContainer}>
+       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => {
           navigation.navigate('AddPostScreen' as any)
         }}>

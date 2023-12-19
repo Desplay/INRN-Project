@@ -7,7 +7,7 @@ const AddNewPost = ({ navigation }: { navigation: any }) => {
 	return (
 		<View style={styles.container}>
 			<Header navigation={navigation} title={"NEW POST"}/>
-			<PostForm />
+			<PostForm navigation={ navigation }/>
 		</View>
 	)
 }

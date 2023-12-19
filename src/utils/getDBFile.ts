@@ -5,7 +5,5 @@ export const getLocalDB = async () => {
   await Sharing.shareAsync(
     FileSystem.documentDirectory + 'SQLite/db.sqlite',
     { dialogTitle: 'share or copy your DB via' }
-  ).catch(error => {
-    console.log(error);
-  })
+  )
 }

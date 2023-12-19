@@ -17,9 +17,7 @@ const Stories = () => {
         }
       }`,
     {      
-      onError: (err) => {
-        console.log(err)
-      },
+      fetchPolicy: 'network-only',
     }
   );
 

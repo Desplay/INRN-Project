@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
 
 const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any, navigation: any }) => {
-
     const token = useSelector((state: any) => state.token).token;
     const { data, loading } = useQuery(
         gql`
@@ -15,12 +14,8 @@ const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any
             }
       }`,
         {
-            
             variables: { profile_id: profile_id },
             context: { headers: { authorization: token } },
-            onError: (err) => {
-                console.log(err)
-            },
         }
     );
 
@@ -36,7 +31,11 @@ const Header = ({ profile_id, title, navigation }: { profile_id: any, title: any
         return (<Image source={require("@assets/avatar/user1.png")} style={styles.noneAvatar} />)
     }
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={
+            () => {
+                navigation.navigate('GuestProfileScreen', { profile_id: profile_id })
+            }
+        }>
             <View style={styles.header}>
                 <ImageGenetor />
                 <View style={styles.headerContent}>

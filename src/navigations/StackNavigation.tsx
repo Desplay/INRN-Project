@@ -6,6 +6,7 @@ import ConfirmAccountScreen from "@screens/CornfirmAccountScreen";
 import BottomNavigation from "./BottomNavigation";
 import PostDetailScreen from "@screens/PostDetailScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import GuestProfileScreen from "@screens/GuestProfileScreen";
 
 const Stack = createBottomTabNavigator();
 
@@ -27,6 +28,7 @@ const StackNavigation = () => {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="ConfirmScreen" component={ConfirmAccountScreen} />
         <Stack.Screen name="PostDetailScreen" component={PostDetailScreen} />
+        <Stack.Screen name="GuestProfileScreen" component={GuestProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

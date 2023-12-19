@@ -36,29 +36,14 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
   }
   )
 
-  const handleLike = async () => {
-    const { errors } = await Liked({ variables: { post_id } })
-    if (errors) {
-      console.log(errors)
-    }
-  }
-
-  const handleUnlike = async () => {
-    const { errors } = await Unliked({ variables: { post_id } })
-    if (errors) {
-      console.log(errors)
-    }
-  }
-
-
   const handleLikeButton = async () => {
     if (like) {
       dispatch(unlikePost({ post_id, profile_id: my_profile_id }))
-      await handleUnlike()
+      await Liked({ variables: { post_id } })
       setLike(false)
     } else {
       dispatch(likePost({ post_id, profile_id: my_profile_id }))
-      await handleLike()
+      await Unliked({ variables: { post_id } })
       setLike(true)
     }
   }
@@ -82,7 +67,7 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={
           () => {
-            navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id })
+            navigation.navigate('PostDetailScreen', { item: item, profile_id: profile_id, lastScreen: "HomeScreen" })
           }
         }>
           <Image source={{ uri: "https://img.icons8.com/fluency-systems-regular/1000/bdbdbd/speech-bubble.png" }} style={{ height: 30, width: 30 }} />

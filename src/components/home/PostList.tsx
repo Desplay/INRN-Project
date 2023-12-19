@@ -36,9 +36,6 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
         }`,
 		{
 			context: { headers: { authorization: token } },
-			onError: (err) => {
-				console.log(err)
-			},
 		}
 	)
 
@@ -52,9 +49,6 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 		  }
 		}`, {
 		context: { headers: { authorization: token } },
-		onError: (err) => {
-			console.log(err)
-		},
 	}
 	)
 
@@ -87,6 +81,8 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 				<FlatList
 					data={posts}
 					extraData={posts}
+					inverted
+					initialNumToRender={5}
 					nestedScrollEnabled
 					renderItem={({ item }) => <PostCard item={item} profile_id={profile_id} navigation={navigation} />}
 					keyExtractor={() => keyGenerator()}
