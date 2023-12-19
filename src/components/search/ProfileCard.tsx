@@ -1,9 +1,11 @@
+import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux';
 
 const ProfileCard = ({ navigation, item }: { navigation: any, item: any }) => {
 
+	const token = useSelector((state: any) => state.token).token;
 	const followings = useSelector((state: any) => state.follow).followings
 	const [follow, setFollow] = useState(followings?.includes(item.id))
 
@@ -42,6 +44,39 @@ const ProfileCard = ({ navigation, item }: { navigation: any, item: any }) => {
 		},
 	});
 
+  const [FollowUser] = useMutation(
+    gql`
+		mutation FollowProfile($profile_id: String!){
+		  FollowProfile(profile_follow: $profile_id)
+		}
+		`, {
+    fetchPolicy: 'no-cache',
+    context: { headers: { authorization: token } },
+  }
+  )
+
+  const [UnfollowUser] = useMutation(
+    gql`
+		mutation UnfollowProfile($profile_id: String!){
+		  UnfollowProfile(profile_unfollow: $profile_id)
+		}
+		`, {
+    fetchPolicy: 'no-cache',
+    context: { headers: { authorization: token } },
+  }
+  )
+
+  const handleFollow = async () => {
+    if (follow) {
+      setFollow(!follow)
+      await UnfollowUser({ variables: { profile_id: item.id } })
+    }
+    else {
+      setFollow(!follow)
+      await FollowUser({ variables: { profile_id: item.id } })
+    }
+  }
+
 	return (
 		<View style={{ marginVertical: 10 }}>
 			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -67,9 +102,7 @@ const ProfileCard = ({ navigation, item }: { navigation: any, item: any }) => {
 					</View>
 				</TouchableOpacity>
 				<View style={{ justifyContent: 'center' }}>
-					<TouchableOpacity style={styles.followButton} onPress={() => {
-						setFollow(!follow)
-					}}>
+					<TouchableOpacity style={styles.followButton} onPress={handleFollow}>
 						{follow ? (
 							<Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
 								Following

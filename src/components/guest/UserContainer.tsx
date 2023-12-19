@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 const Header = ({ profile_id }: { profile_id: any }) => {
 
@@ -34,6 +34,39 @@ const Header = ({ profile_id }: { profile_id: any }) => {
     }
   );
 
+  const [FollowUser] = useMutation(
+    gql`
+		mutation FollowProfile($profile_id: String!){
+		  FollowProfile(profile_follow: $profile_id)
+		}
+		`, {
+    fetchPolicy: 'no-cache',
+    context: { headers: { authorization: token } },
+  }
+  )
+
+  const [UnfollowUser] = useMutation(
+    gql`
+		mutation UnfollowProfile($profile_id: String!){
+		  UnfollowProfile(profile_unfollow: $profile_id)
+		}
+		`, {
+    fetchPolicy: 'no-cache',
+    context: { headers: { authorization: token } },
+  }
+  )
+
+  const handleFollow = async () => {
+    if (follow) {
+      setFollow(!follow)
+      await UnfollowUser({ variables: { profile_id: profile_id } })
+    }
+    else {
+      setFollow(!follow)
+      await FollowUser({ variables: { profile_id: profile_id } })
+    }
+  }
+
   useEffect(() => {
     const get = async () => {
       const { data } = await GetProfile[0]({ variables: { profile_id: profile_id } });
@@ -47,6 +80,7 @@ const Header = ({ profile_id }: { profile_id: any }) => {
     }
     get();
   }, [])
+
 
 
   const styles = StyleSheet.create({
@@ -117,9 +151,7 @@ const Header = ({ profile_id }: { profile_id: any }) => {
             </Text>
           </View>
           <View style={{ justifyContent: 'center' }}>
-            <TouchableOpacity style={styles.followButton} onPress={() => {
-              setFollow(!follow)
-            }}>
+            <TouchableOpacity style={styles.followButton} onPress={handleFollow}>
               {follow ? (
                 <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
                   Following
