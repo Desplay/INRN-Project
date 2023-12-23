@@ -17,7 +17,7 @@ const PostDetailScreen = ({ navigation, route }: { navigation: any, route: any }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Header navigation={navigation} title={"POSTS"} />
+        <Header navigation={navigation} title={"POSTS"} item={item} />
         {lastScreen === 'HomeScreen' ? <PostCardInHome item={item} profile_id={profile_id} navigation={navigation} /> :
           lastScreen === 'ProfileScreen' ? <PostCardInProfile item={item} profile_id={profile_id} navigation={navigation} /> :
             <PostCardInGuest item={item} profile_id={profile_id} navigation={navigation} />

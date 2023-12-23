@@ -1,6 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-export const uri = `https://inrn-project-services.adaptable.app/graphql`;
+const IP = "172.17.31.45";
+
+export const uri = `http://${IP}:3000/graphql`;
 
 const client = new ApolloClient({
   uri,
