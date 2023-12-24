@@ -55,7 +55,7 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
                 const Newtoken = token.SignIn.token
                 dispatch(saveToken({ token: Newtoken }))
                 await dbServices.updateData('localStorage', ['field', 'value'], ['token', Newtoken], 'field = "token"')
-                navigation.navigate('HomeScreen' as any, { reload: true})
+                navigation.navigate('HomeScreen' as any, { reload: true })
             },
         });
 
@@ -64,13 +64,14 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
             <Formik
                 initialValues={{ username: '', password: '' }}
                 onSubmit={async (values) => {
-                    await SignIn({
+                    const { data, errors } = await SignIn({
                         variables: {
                             email: values.username.includes('@') ? values.username : '',
                             password: values.password,
                             username: values.username.includes('@') ? '' : values.username,
                         }
                     });
+                    console.log(errors)
                     values.password = ''
                     values.username = ''
                 }

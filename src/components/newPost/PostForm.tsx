@@ -3,8 +3,9 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import * as ImagePicker from 'expo-image-picker';
 import { Divider } from 'react-native-elements';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import client, { uri } from '@utils/graphqlServices';
+import { saveMyPosts } from '@features/myPostStore';
 
 const PLANCEHOLDER_IMG = 'https://img.icons8.com/ios/500/ffffff/camera--v4.png'
 
@@ -19,6 +20,8 @@ const uploadPostSchema = Yup.object().shape({
 
 const PostForm = ({ navigation }: { navigation: any }) => {
 	const token = useSelector((state: any) => state.token).token;
+	const myPosts = useSelector((state: any) => state.myPosts).posts;
+	const dispatch = useDispatch();
 	return (
 		<Formik
 			initialValues={{ title: '', content: '' }}
@@ -31,7 +34,21 @@ const PostForm = ({ navigation }: { navigation: any }) => {
 						title: $title
 						content: $content
 						File: $File
-					})
+					}) {
+						id
+                  		title
+                  		content
+                  		imageUrl
+				  		likesCount
+                  		comments {
+                  		  id
+                  		  post_id
+                  		  profile_id
+                  		  reply_id
+                  		  body
+                  		  updated_at
+                  		}
+					}
 				}`
 
 				const formdata = new FormData();
@@ -46,8 +63,8 @@ const PostForm = ({ navigation }: { navigation: any }) => {
 						}
 					}
 				}));
-				formdata.append('map', JSON.stringify({ 1: ['variables.Image'] }));
 
+				formdata.append('map', JSON.stringify({ 1: ['variables.Image'] }));
 				const status = await fetch(uri, {
 					method: 'POST',
 					headers: {
@@ -58,6 +75,9 @@ const PostForm = ({ navigation }: { navigation: any }) => {
 				})
 				const result = await status.json()
 				if (result.data) {
+					const newPost = result.data.createPost
+					const newPosts = [...myPosts, newPost]
+					dispatch(saveMyPosts(newPosts))
 					navigation.navigate('HomeScreen')
 					return
 				}

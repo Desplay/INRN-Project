@@ -38,7 +38,7 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
               }
         }`,
 		{
-			fetchPolicy: 'network-only',
+			fetchPolicy: 'no-cache',
 			context: { headers: { authorization: token } },
 		}
 	)
@@ -61,7 +61,7 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 			if (profile_id) {
 				const { data: Posts, loading } = await getPosts[0]({ variables: { profile_id } })
 				if (!Posts) {
-					dispatch(saveMyPosts([]))
+					dispatch(saveGuestPosts([]))
 					return
 				}
 				if (!loading) {
@@ -80,7 +80,7 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 			}
 		}
 		getPost()
-	}, [profile_id])
+	}, [profile_id, focused])
 
 	if (!guestPosts) {
 		return (<View></View>);

@@ -1,8 +1,19 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { Divider } from 'react-native-elements'
+import ReactNativeBlobUtil from 'react-native-blob-util';
 
-const Header = ({ navigation, title }: { navigation: any, title: any }) => {
+const Header = ({ navigation, title, item }: { navigation: any, title: any, item?: any }) => {
+
+	const downloadImage = (url: string) => {
+		// ReactNativeBlobUtil
+		// 	.config({
+		// 		fileCache: true,
+		// 	})
+		// 	.fetch('GET', url)
+		// 	.then((res) => {
+		// 		console.log('The file saved to ', res.path())
+		// 	})
+	}
+
 	return (
 		<>
 			<View style={styles.container}>
@@ -13,7 +24,15 @@ const Header = ({ navigation, title }: { navigation: any, title: any }) => {
 					/>
 				</TouchableOpacity>
 				<Text style={styles.text}>{title}</Text>
-				<Text></Text>
+				{
+					!item?.imageUrl ? <Text></Text> :
+						<TouchableOpacity onPress={() => downloadImage(item.imageUrl)}>
+							<Image
+								source={{ uri: 'https://img.icons8.com/fluency-systems-filled/500/ffffff/download.png' }}
+								style={{ width: 30, height: 30, marginRight: 10 }}
+							/>
+						</TouchableOpacity>
+				}
 			</View>
 		</>
 	)
@@ -21,6 +40,7 @@ const Header = ({ navigation, title }: { navigation: any, title: any }) => {
 
 const styles = StyleSheet.create({
 	container: {
+		marginTop: 5,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
