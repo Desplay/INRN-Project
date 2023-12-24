@@ -22,7 +22,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 	const token = useSelector((state: any) => state.token).token
 	const dispatch = useDispatch()
 	const focused = useIsFocused()
-	const followings = useSelector((state: any) => state.follow).followings
 
 	const { data } = useQuery(
 		gql`
@@ -56,12 +55,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 			<ScrollView>
 				<Stories />
 				<View style={{ flex: 1 }}>
-					{followings ? (
-						followings.map((item: any, index: any) => (
-							item == followings[index - 1] ? <View key={keyGenerator()}></View> :
-								<PostList key={keyGenerator()} profile_id={item} navigation={navigation} />
-						))
-					) : <></>}
+					<PostList key={keyGenerator()} navigation={navigation} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>

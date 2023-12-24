@@ -9,7 +9,7 @@ const Footer = ({ item, profile_id, navigation }: { item: any, profile_id: any, 
 
   const token = useSelector((state: any) => state.token).token
   const my_profile_id = useSelector((state: any) => state.token).profile_id
-  const commentCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].comments.length
+  const commentCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].comments?.length
   const likeCount = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likesCount
   const likeList = useSelector((state: any) => state.posts).posts.filter((post: any) => post.id == item.id)[0].likes
   const [like, setLike] = likeList?.filter((like: any) => like.profileIdLiked == my_profile_id).length > 0 ? useState(true) : useState(false)

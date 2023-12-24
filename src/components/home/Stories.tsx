@@ -12,13 +12,13 @@ const Stories = () => {
   const [GetFollow] = useLazyQuery(
     gql`
       query {
-        getUserFollowerMyProfile {
+        getFollowing {
           profile_id
         }
       }
     `,
     {
-      fetchPolicy: "network-only",
+      fetchPolicy: "no-cache",
     }
   );
 
