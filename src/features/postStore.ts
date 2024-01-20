@@ -28,7 +28,6 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     savePosts(state, action) {
-      console.log("savePosts", action.payload);
       if (action.payload.length !== state.posts.length) {
         state.posts = action.payload;
       }

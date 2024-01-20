@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 		<SafeAreaView style={styles.container}>
 			<Header navigation={navigation} />
 			<ScrollView>
-				<Stories />
+				<Stories navigation={navigation}/>
 				<View style={{ flex: 1 }}>
 					<PostList key={keyGenerator()} navigation={navigation} />
 				</View>

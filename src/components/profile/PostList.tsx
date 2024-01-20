@@ -70,7 +70,6 @@ const PostList = ({ profile_id, navigation }: { profile_id: any, navigation: any
 						likes: likes,
 					})
 				}
-				console.log(Posts)
 				dispatch(saveMyPosts(newPosts))
 			}
 		}

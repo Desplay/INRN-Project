@@ -71,7 +71,6 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
                             username: values.username.includes('@') ? '' : values.username,
                         }
                     });
-                    console.log(errors)
                     values.password = ''
                     values.username = ''
                 }

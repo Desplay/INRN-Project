@@ -60,7 +60,6 @@ const PostList = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     const getPost = async () => {
       const newPosts = [];
-	  console.log(followings)
 	  if(!followings) return dispatch(savePosts([]))
       for (let profile_id of followings) {
         const { data: Posts } = await getPosts[0]({

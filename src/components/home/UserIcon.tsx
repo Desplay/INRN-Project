@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 
-const UserIcon = ({ item }: { item: any }) => {
+const UserIcon = ({ item, navigation }: { item: any, navigation: any }) => {
 
     const token = useSelector((state: any) => state.token).token;
 
@@ -16,7 +16,7 @@ const UserIcon = ({ item }: { item: any }) => {
             }
       }`,
         {
-            
+
             variables: { profile_id: item },
             context: { headers: { authorization: token } },
         }
@@ -28,7 +28,11 @@ const UserIcon = ({ item }: { item: any }) => {
 
     return (
         <View>
-            <TouchableOpacity style={styles.userContainer}>
+            <TouchableOpacity style={styles.userContainer} onPress={
+                () => {
+                    navigation.navigate('GuestProfileScreen', { profile_id: item })
+                }
+            }>
                 {profile?.avatarUri ? (
                     <Image style={styles.userLogo} source={{ uri: profile.avatarUri }} />
                 ) : (
