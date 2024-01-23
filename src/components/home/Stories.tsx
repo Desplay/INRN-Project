@@ -17,7 +17,7 @@ const Stories = () => {
         }
       }`,
     {      
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'no-cache',
     }
   );
 
